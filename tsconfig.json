@@ -25,7 +25,8 @@
     ".eslintrc.cjs",
     ".prettierrc.mjs",
     "babel.config.cjs",
-    "metro.config.js"
+    "metro.config.js",
+    "commitlint.config.mjs"
   ],
   "exclude": ["node_modules", "jest.config.js"]
 }
