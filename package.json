@@ -8,7 +8,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "clean": "git clean -xdf .cache .expo android ios node_modules",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "format": "prettier --check \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc}\"",
+    "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc}\""
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@ianvs/prettier-plugin-sort-imports": "^4.5.1",
     "@types/eslint": "^9.6.1",
     "@types/react": "~19.0.10",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
@@ -29,6 +32,8 @@
     "eslint-config-expo": "~9.2.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "typescript": "~5.8.3"
   },
   "private": true
