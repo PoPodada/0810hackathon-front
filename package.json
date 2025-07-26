@@ -2,6 +2,7 @@
   "name": "0810hackathon-front",
   "version": "1.0.0",
   "main": "src/screens/app.tsx",
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
