@@ -2,6 +2,7 @@
   "expo": {
     "name": "0810hackathon-front",
     "slug": "0810hackathon-front",
+    "scheme": "0810hackathon-front",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
@@ -24,6 +25,7 @@
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
-    }
+    },
+    "plugins": ["expo-router"]
   }
 }

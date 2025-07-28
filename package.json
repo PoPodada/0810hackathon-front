@@ -1,7 +1,7 @@
 {
   "name": "0810hackathon-front",
   "version": "1.0.0",
-  "main": "src/screens/app.tsx",
+  "main": "expo-router/entry",
   "packageManager": "pnpm@10.13.1",
   "scripts": {
     "start": "expo start",
@@ -16,10 +16,15 @@
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
     "expo": "~53.0.20",
+    "expo-constants": "~17.1.7",
+    "expo-linking": "~7.1.7",
+    "expo-router": "~5.1.4",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-screens": "~4.11.1",
     "react-native-web": "^0.20.0"
   },
   "devDependencies": {
