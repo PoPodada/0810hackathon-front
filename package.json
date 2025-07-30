@@ -1,7 +1,7 @@
 {
   "name": "0810hackathon-front",
   "version": "1.0.0",
-  "main": "src/screens/app.tsx",
+  "main": "expo-router/entry",
   "packageManager": "pnpm@10.13.1",
   "scripts": {
     "start": "expo start",
@@ -9,17 +9,23 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "clean": "git clean -xdf .cache .expo android ios node_modules",
-    "lint": "expo lint",
+    "lint": "eslint .",
+    "lint:fix": "eslint --ext ts,tsx --fix src/**/",
     "format": "prettier --check \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc}\"",
     "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc}\""
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
     "expo": "~53.0.20",
+    "expo-constants": "~17.1.7",
+    "expo-linking": "~7.1.7",
+    "expo-router": "~5.1.4",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-screens": "~4.11.1",
     "react-native-web": "^0.20.0"
   },
   "devDependencies": {
@@ -33,7 +39,9 @@
     "@typescript-eslint/parser": "^8.38.0",
     "eslint": "^9.31.0",
     "eslint-config-expo": "~9.2.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-react-hooks": "^5.2.0",
     "lefthook": "^1.12.2",
     "prettier": "^3.6.2",

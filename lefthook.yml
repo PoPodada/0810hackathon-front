@@ -8,7 +8,7 @@ pre-commit:
     prettier:
       glob: "*.{js,ts,jsx,tsx,json,md}"
       exclude: "commitlint.config.js"
-      run: npx prettier --check {staged_files}
+      run: npx prettier --check \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc}\"
 
 # pre-push:
 #   commands:

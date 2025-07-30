@@ -1,12 +1,12 @@
-import { registerRootComponent } from "expo";
+import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
-const App = () => {
+const Page = () => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text>Home Screen</Text>
+      <Link href="/second">aaaa</Link>
     </View>
   );
 };
@@ -20,4 +20,5 @@ const styles = StyleSheet.create({
   },
 });
 
-registerRootComponent(App);
+export default Page;
+// registerRootComponent(App);
