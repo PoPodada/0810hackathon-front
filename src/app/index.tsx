@@ -1,12 +1,14 @@
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, } from "react-native";
 
 const Page = () => {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Link href="/mode">aaaa</Link>
+      <Text>おさんぽげったー（仮）</Text>
+      <Button title= "START" onPress={() => router.push("/mode") } />
     </View>
   );
 };
