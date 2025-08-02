@@ -1,24 +1,81 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
-import { Circle } from "../components/map";
-import ControlPanel from "../components/map/control-panel";
+import { Text, StyleSheet, View } from "react-native";
+import Slider from "@react-native-community/slider";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Region,
+  Marker,
+  Circle,
+} from "react-native-maps";
 
 const API_KEY = "";
 
-const INITIAL_CENTER = { lat: 41.1897, lng: -96.0627 };
-const Page = () => {
-  const [center, setCenter] = useState(INITIAL_CENTER);
-  const [radius, setRadius] = useState(43000);
+const RegionValue: Region = {
+  latitude: 34.3845479077209,
+  longitude: 132.45614910237433,
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+};
 
-  const changeCenter = (newCenter: google.maps.LatLng | null) => {
-    if (!newCenter) return;
-    setCenter({ lng: newCenter.lng(), lat: newCenter.lat() });
-  };
+const Page = () => {
+  const [radius, setRadius] = useState(43000);
+  const [markerCoordinate, setMarkerCoordinate] = useState({
+    latitude: 34.3845479077209,
+    longitude: 132.45614910237433,
+  });
+
   return (
     <View style={styles.container}>
-      <APIProvider apiKey={API_KEY}>
-        <APIProvider apiKey={API_KEY}>
+      <MapView
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={RegionValue}
+      >
+        <Marker
+          draggable
+          onDragEnd={(e) => setMarkerCoordinate(e.nativeEvent.coordinate)}
+          coordinate={markerCoordinate}
+        />
+        <Circle center={markerCoordinate} radius={radius} strokeWidth={5} />
+      </MapView>
+      <View style={styles.footer}>
+        <Slider
+          style={{ width: 200, height: 40 }}
+          minimumValue={0}
+          maximumValue={2000}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
+          onValueChange={(value) => setRadius(value)}
+        />
+        <Text>{radius}</Text>
+        <Text>
+          {markerCoordinate.latitude}, {markerCoordinate.longitude}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+  },
+  footer: {
+    height: 200,
+  },
+});
+
+export default Page;
+
+{
+  /* <APIProvider apiKey={API_KEY}>
           <Map
             defaultCenter={INITIAL_CENTER}
             defaultZoom={10}
@@ -35,12 +92,6 @@ const Page = () => {
                 })
               }
             />
-            {/* <Polygon strokeWeight={1.5} encodedPaths={POLYGONS} /> */}
-            {/* <Polyline
-          strokeWeight={10}
-          strokeColor={'#ff22cc88'}
-          encodedPath={POLYGONS[11]}
-        /> */}
             <Circle
               radius={radius}
               center={center}
@@ -55,25 +106,5 @@ const Page = () => {
               draggable
             />
           </Map>
-          <ControlPanel
-            center={center}
-            radius={radius}
-            onCenterChanged={setCenter}
-            onRadiusChanged={setRadius}
-          />
-        </APIProvider>
-      </APIProvider>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-
-export default Page;
+        </APIProvider> */
+}

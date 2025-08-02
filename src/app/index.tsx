@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
-      <Link href="/second">aaaa</Link>
+      <Link href="/map">aaaa</Link>
     </View>
   );
 };
