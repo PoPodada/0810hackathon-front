@@ -1,14 +1,32 @@
 import { Link, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
+import React, { useState, useEffect } from "react";
 
-const image = require("./image/hcu_googleMap_image.png");
-
+const images = [
+  require("./image/hcu_googleMap_image.png"),
+  require("./image/hiroshimaCity_image.png"),
+  require("./image/hiroshima_university_image.png"),
+  require("./image/hiroshima_university_streetview_image.png"),
+];
 const Page = () => {
   const router = useRouter();
+  const [imageIndex, setImageIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+      setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(intervalID);
+  }, []);
 
   return (
-    <ImageBackground source={image} resizeMode="cover" style={styles.container}>
+    <ImageBackground
+      source={images[imageIndex]}
+      resizeMode="cover"
+      style={styles.container}
+    >
       <View style={styles.descriptionContainer}>
         <Text>おさんぽげったー（仮）</Text>
 
@@ -29,7 +47,7 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     width: "80%",
-    backgroundColor: "e0e0e0",
+    backgroundColor: "#e0e0e0",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
