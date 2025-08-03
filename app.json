@@ -15,10 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.example.0810hackathonfront",
-      "config": {
-        "googleMapsApiKey": ""
-      }
+      "bundleIdentifier": "com.example.0810hackathonfront"
     },
     "android": {
       "adaptiveIcon": {
