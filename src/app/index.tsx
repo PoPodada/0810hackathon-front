@@ -33,6 +33,7 @@ const Page = () => {
         <Button title="START" onPress={() => router.push("/second")} />
       </View>
     </ImageBackground>
+
   );
 };
 const styles = StyleSheet.create({
