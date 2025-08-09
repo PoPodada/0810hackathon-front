@@ -8,14 +8,18 @@ pre-commit:
     prettier:
       glob: "*.{js,ts,jsx,tsx,json,md}"
       exclude: "commitlint.config.js"
-      run: npx prettier --check \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc}\"
+      run: npx prettier --check {staged_files}
 
-# pre-push:
-#   commands:
-#     eslint:
-#       glob: "*.{js,ts,jsx,tsx}"
-#       exclude: "commitlint.config.js" 
-#       run: npx eslint {push_files}
+pre-push:
+  commands:
+    eslint:
+      glob: "*.{js,ts,jsx,tsx}"
+      exclude: "commitlint.config.js"
+      run: npx expo lint --fix {staged_files}
+    prettier:
+      glob: "*.{js,ts,jsx,tsx,json,md}"
+      exclude: "commitlint.config.js"
+      run: npx prettier --check {staged_files}
 
 commit-msg:
   commands:
