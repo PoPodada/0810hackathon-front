@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { Link, useRouter } from "expo-router";
-import { Button, Modal, StyleSheet, Text, View, Pressable } from "react-native";
+import { Modal, StyleSheet, Text, View, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import React, { useState } from "react";
+import { Button } from "tamagui";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -11,7 +12,7 @@ const Page = () => {
   return (
     <View style={styles.container}>
       <View style={[styles.header, {}]}>
-        <Link href="/">戻る</Link>
+        <Button onPress={() => router.back()}>戻る</Button>
       </View>
       <View
         style={[
@@ -19,13 +20,13 @@ const Page = () => {
           { backgroundColor: "rgba(230, 233, 90, 0.3)" },
         ]}
       >
-        <Button title="おさんぽ" onPress={() => router.push("/map")} />
+        <Button onPress={() => router.push("/map")}>おさんぽ</Button>
       </View>
       {/* <View style={[styles.buttonBackground,{backgroundColor: 'rgba(230, 233, 90, 0.3)'}]}>
-        <Button title="もんだい" onPress={() => setModalVisible(true)}/>
+        <Button onPress={() => setModalVisible(true)}>もんだい</Button>
       </View> */}
 
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -49,7 +50,7 @@ const Page = () => {
             </Pressable>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
 
       <StatusBar style="auto" />
     </View>

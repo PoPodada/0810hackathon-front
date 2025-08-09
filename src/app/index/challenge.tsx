@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
+import CommonHeader from "@/components/CommonHeader";
+import { Button, Switch } from "tamagui";
 
 type Problem = {
   user_id: number;
@@ -14,14 +16,15 @@ type Problem = {
 const Page = () => {
   const [problem, setProblem] = useState<Problem | null>(null);
   const { radius, latitude, longitude } = useLocalSearchParams();
-  console.log(radius, "radiradi");
+  const [checked, setChecked] = useState(false);
   const apiKey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const router = useRouter();
 
   useEffect(() => {
     const getProblem = async () => {
       try {
         const res = await fetch(
-          "https://b19fdfee99b0.ngrok-free.app/random-problem/create",
+          "https://cb0bde733d5a.ngrok-free.app/random-problem/create",
           {
             method: "POST",
             headers: {
@@ -58,53 +61,54 @@ const Page = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Link href="/map">戻る</Link>
-      </View>
+      <CommonHeader
+        left={<Button onPress={() => router.back()}>戻る</Button>}
+        right={
+          <Button onPress={() => router.push("/camera")}>この場所へ行く</Button>
+        }
+      />
       {problem ? (
         <Image
           source={{
             uri: `https://maps.googleapis.com/maps/api/streetview?size=1000x800&location=${problem?.latitude},${problem?.longitude}&heading=165&pitch=0&fov=200&key=AIzaSyBwKmSXGOhbVs7Q8ot0o3yrI0lDYqEr21U`,
           }}
-          style={{ width: "100%", height: "80%" }}
+          style={styles.imageWrapper}
         />
       ) : (
-        <View style={{ width: "100%", height: "80%" }}>
+        <View style={styles.imageWrapper}>
           <Text>loading...</Text>
         </View>
       )}
       <View style={styles.footer}>
-        <Link href="/map" style={{ marginLeft: 20 }}>
-          戻る
-        </Link>
-        <Link href="/camera" style={{ marginRight: 20 }}>
-          この場所へ行く
-        </Link>
+        <Text>位置情報：</Text>
+        <Switch
+          bg={checked ? "#A5D6A7" : "#ccc"}
+          size="$3"
+          checked={checked}
+          onCheckedChange={() => setChecked(!checked)}
+        >
+          <Switch.Thumb animation="bouncy" />
+        </Switch>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    width: "100%",
-    height: 60,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    paddingLeft: 20,
-  },
   container: {
+    flex: 1,
     width: "100%",
-    height: "100%",
-    //backgroundColor: "#fff",
+  },
+  imageWrapper: {
+    width: "100%",
+    flex: 1,
   },
   footer: {
-    height: "10%",
-    justifyContent: "space-between",
-    display: "flex",
+    height: 70,
     flexDirection: "row",
     alignItems: "center",
+    // alignItems: "center",
+    marginLeft: 20,
   },
 });
 
