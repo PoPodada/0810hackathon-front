@@ -29,8 +29,6 @@ const INITIAL_RADIUS = 1000;
 const Page = () => {
   const [radius, setRadius] = useState(INITIAL_RADIUS);
   const [center, setCenter] = useState(INITIAL_COORDINATE);
-  const router = useRouter();
-  console.log(center, radius);
 
   const handleMarkerDrag = (e: MarkerDragEvent) => {
     const { coordinate } = e.nativeEvent;
