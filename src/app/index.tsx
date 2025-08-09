@@ -30,7 +30,7 @@ const Page = () => {
       <View style={styles.descriptionContainer}>
         <Text>おさんぽげったー（仮）</Text>
 
-        <Button title="START" onPress={() => router.push("/second")} />
+        <Button title="START" onPress={() => router.push("/mode")} />
       </View>
     </ImageBackground>
   );
