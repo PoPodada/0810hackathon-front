@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
-import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
+import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import React, { useState, useEffect } from "react";
+import { Button, Paragraph } from "tamagui";
 
 const images = [
   require("./image/hcu_googleMap_image.png"),
@@ -27,8 +28,10 @@ const Page = () => {
       style={styles.container}
     >
       <View style={styles.descriptionContainer}>
-        <Text>おさんぽげったー（仮）</Text>
-        <Button title="START" onPress={() => router.push("/mode")} />
+        <Paragraph>おさんぽげったー</Paragraph>
+        <Button theme="blue" margin={10} onPress={() => router.push("/mode")}>
+          START
+        </Button>
       </View>
     </ImageBackground>
   );
