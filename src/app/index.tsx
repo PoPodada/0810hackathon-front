@@ -1,5 +1,4 @@
-import { Link, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { useRouter } from "expo-router";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import React, { useState, useEffect } from "react";
 
@@ -29,7 +28,6 @@ const Page = () => {
     >
       <View style={styles.descriptionContainer}>
         <Text>おさんぽげったー（仮）</Text>
-
         <Button title="START" onPress={() => router.push("/mode")} />
       </View>
     </ImageBackground>
