@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, StyleSheet, View, Button } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import MapView, {
   PROVIDER_GOOGLE,
@@ -7,10 +7,9 @@ import MapView, {
   Marker,
   Circle,
   LatLng,
-  MapMarkerProps,
   MarkerDragEvent,
 } from "react-native-maps";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 const API_KEY = "";
 
@@ -30,6 +29,8 @@ const INITIAL_RADIUS = 1000;
 const Page = () => {
   const [radius, setRadius] = useState(INITIAL_RADIUS);
   const [center, setCenter] = useState(INITIAL_COORDINATE);
+  const router = useRouter();
+  console.log(center, radius);
 
   const handleMarkerDrag = (e: MarkerDragEvent) => {
     const { coordinate } = e.nativeEvent;
@@ -58,7 +59,18 @@ const Page = () => {
           maximumTrackTintColor="#000000"
           onValueChange={(value) => setRadius(value)}
         />
-        <Button title="決定" />
+        <Link
+          href={{
+            pathname: "/challenge",
+            params: {
+              radius: String(radius),
+              latitude: String(center.latitude),
+              longitude: String(center.longitude),
+            },
+          }}
+        >
+          決定
+        </Link>
         <Text>{radius}</Text>
         <Text>
           {center.latitude}, {center.longitude}
