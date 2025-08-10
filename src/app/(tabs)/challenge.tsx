@@ -37,7 +37,7 @@ const Page = () => {
             user_id: userId,
             center_longitude: Number(longitude),
             center_latitude: Number(latitude),
-            radius: Number(radius),
+            radius: Number(radius) / 1000,
           }),
         });
         console.log(
