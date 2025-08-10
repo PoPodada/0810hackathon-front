@@ -19,7 +19,7 @@ const Page = () => {
           { backgroundColor: "rgba(230, 233, 90, 0.3)" },
         ]}
       >
-        <Button title="おさんぽ" onPress={() => router.push("/camera")} />
+        <Button title="おさんぽ" onPress={() => router.push("/map")} />
       </View>
       {/* <View style={[styles.buttonBackground,{backgroundColor: 'rgba(230, 233, 90, 0.3)'}]}>
         <Button title="もんだい" onPress={() => setModalVisible(true)}/>

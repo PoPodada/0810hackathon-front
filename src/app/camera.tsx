@@ -52,12 +52,15 @@ const Page = () => {
     
   return (
     <View style={styles.container}>
-      <View style={[styles.header, {}]}>
-        <Link href="/challenge">戻る</Link>
-      </View>
+      
       
         { ImageUri ? (
           <>
+          <View style={[styles.headerContainer, {}]}>
+            <Link href="/challenge">戻る</Link>
+            <Link href="/result">保存</Link>
+          </View>
+          
           <Image
           source= {{uri: ImageUri}}
           style={styles.image}
@@ -65,9 +68,11 @@ const Page = () => {
           
           />
           
-            
+            <View style={[styles.futterContainer, {}]}>
+            <Link href="/mode">あきらめる</Link>
+        
             <Pressable
-              style={styles.futter_retake}
+              style={styles.futterContainer}
               onPress={() => {
                 setImageUri(null);
                 setIsCameraVisible(true);
@@ -75,15 +80,20 @@ const Page = () => {
             >
               <Text>もう一度撮影</Text> 
             </Pressable>
-          
+          </View>
           </>
           ) : (
-          <Pressable
-            style={styles.buttonBackground}
-            onPress={handleCameraPress}
-      >
-            <Text>カメラを起動</Text>
-          </Pressable>
+          <>
+            <View style={[styles.headerContainer, {}]}>
+              <Link href="/challenge">戻る</Link>
+            </View>
+            <Pressable
+              style={styles.buttonBackground}
+              onPress={handleCameraPress}
+            >
+              <Text>カメラを起動</Text>
+            </Pressable>
+          </>
         )}
         
         <Modal
@@ -107,9 +117,7 @@ const Page = () => {
           
         </Modal> 
         {/*<Button title="カメラ" onPress={() => requestPermission()} />*/}
-        <View style={[styles.futter, {}]}>
-        <Link href="/mode">あきらめる</Link>
-      </View>
+        
 
       <StatusBar style="auto" />
     </View>
@@ -117,15 +125,17 @@ const Page = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
+  headerContainer: {
     width: "100%",
     height: 60,
     flexDirection: "row",
-    //alignItems: "center",
-    justifyContent: "flex-start",
-    paddingLeft: 20,
+    justifyContent: "space-between",
+    alignItems: "center",
+    
+    paddingHorizontal: 20,
+    top: 20,
   },
-
+ 
   container: {
     flex: 1,
     backgroundColor: "#ffffffff",
@@ -187,20 +197,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  futter: {
+  futterContainer: {
     width: "100%",
     height: 60,
     flexDirection: "row",
-    justifyContent: "flex-end",
-    paddingLeft: 20,
+    justifyContent: "space-between",
+    //alignContent: "center",
+    paddingHorizontal: 20,
+    
+    bottom: 20,
   },
-  futter_retake: {
-    width: "100%",
-    height: 60,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    padding: 20,
-  },
+  
   
 });
 
