@@ -12,7 +12,7 @@ const Page = () => {
   return (
     <View style={styles.container}>
       <View style={[styles.header, {}]}>
-        <Button onPress={() => router.back()}>戻る</Button>
+        {/* <Button onPress={() => router.back()}>戻る</Button> */}
       </View>
       <View
         style={[
