@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Link, useRouter } from "expo-router";
+import { Link, useRouter,useLocalSearchParams } from "expo-router";
 import {
   Button,
   Modal,
@@ -13,8 +13,15 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import React, { useState, useRef } from "react";
 import { useCameraPermissions, CameraView, CameraType } from "expo-camera";
+import MapView, {
+  
+  Region,
+  
+} from "react-native-maps";
+import * as Location from "expo-location";
 import CommonHeader from "@/components/CommonHeader";
 import { Switch } from "tamagui";
+
 
 const Page = () => {
   const [permission, requestPermission] = useCameraPermissions();
@@ -24,13 +31,20 @@ const Page = () => {
   const [facing, setFacing] = useState<CameraType>("back");
   const cameraRef = useRef<CameraView>(null);
   const router = useRouter();
-
-  const handleCameraPress = async () => {
+    const [region,setRegion] = useState<Region| null >(null);
+    const [location, setLocation] = useState<{latitude:number, longitude:number} | null>(null);
+    
+    const handleCameraPress = async () => {
     const { status } = await requestPermission();
     if (status !== "granted") {
       Alert.alert("権限エラー", "カメラへのアクセスが許可されていません。");
       return;
     }
+
+
+
+
+
     setIsCameraVisible(true);
   };
 
@@ -41,17 +55,70 @@ const Page = () => {
         const photo = await cameraRef.current.takePictureAsync();
         setImageUri(photo.uri);
         setIsCameraVisible(false);
+        
+
+
+        let { status } = await Location.requestForegroundPermissionsAsync(); 
+      if (status !== "granted") {
+        console.log("位置情報の許可がありません");
+        return;
+      }
+
+        let location = await Location.getCurrentPositionAsync({}); 
+        if (location) {
+        const { latitude, longitude } = location.coords;
+        setRegion({
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        });
+        console.log("現在地:", latitude, longitude);
+      }
+
       } catch (error) {
         console.error("写真の撮影に失敗しました:", error);
         Alert.alert("撮影エラー", "写真の撮影に失敗しました。");
       }
+
+      
     }
+    
   };
   function toggleCameraFacing() {
     setFacing((current) => (current === "back" ? "front" : "back"));
   }
+  const random_problem_id = useLocalSearchParams(); // ここに実際のIDを設定
+  console.log("random_problem_id:", random_problem_id);
+  const API_URL = `https://test-back-image-768984531685.asia-northeast1.run.app/random-problem/complete/${random_problem_id}`; // ここに実際のAPIエンドポイントを設定
+  const sendLocation = async () => {
+    try {
+    const response = await fetch(API_URL, {
+        method: "PHATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: random_problem_id.userId, // ユーザーIDを適切に設定
+          user_latitude: region?.latitude,
+          user_longitude: region?.longitude,
+          image_url: ImageUri, // バックエンドでファイル処理するなら別送
+        }),
+      });
 
-  return (
+      if (!response.ok) {
+        throw new Error("サーバーエラー");
+      }
+
+      console.log("送信完了:", await response.json());
+
+    } catch (error) {
+      console.error("処理失敗:", error);
+      Alert.alert("エラー", "データ送信に失敗しました");
+    }
+  }
+
+    return (
     <View style={styles.container}>
       {ImageUri ? (
         <>
@@ -59,15 +126,17 @@ const Page = () => {
             left={<Button onPress={() => router.back()} title="戻る" />}
             right={
               <Button
-                onPress={() =>
+                onPress={() =>{
                   router.push({
                     pathname: "/result",
                   })
+                Alert.alert("保存", "画像が保存されました。");
+                sendLocation();
+                }
                 }
                 title="保存"
               />
-            }
-          />
+            }/>
 
           <Image
             source={{ uri: ImageUri }}
