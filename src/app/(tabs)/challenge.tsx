@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Text } from "react-native";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import CommonHeader from "@/components/CommonHeader";
 import { Button, Switch } from "tamagui";
+import { useUser } from "@/providers/user-provider";
 
 type Problem = {
   user_id: number;
@@ -18,39 +19,42 @@ const Page = () => {
   const { radius, latitude, longitude } = useLocalSearchParams();
   const [checked, setChecked] = useState(false);
   const apiKey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const apiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL;
   const router = useRouter();
+  const { userId } = useUser();
+  console.log("userId:", userId);
 
   useEffect(() => {
     const getProblem = async () => {
       try {
-        const res = await fetch(
-          "https://cb0bde733d5a.ngrok-free.app/random-problem/create",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              user_id: 0,
-              center_longitude: Number(longitude),
-              center_latitude: Number(latitude),
-              radius: Number(radius),
-            }),
+        console.log(userId);
+        const res = await fetch(`${apiBaseUrl}/random-problem/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            user_id: userId,
+            center_longitude: Number(longitude),
+            center_latitude: Number(latitude),
+            radius: Number(radius),
+          }),
+        });
+        console.log(
+          typeof userId,
+          typeof latitude,
+          typeof longitude,
+          typeof radius,
         );
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data: Problem = await res.json();
 
-        //正確な値が返ってくるようになったら消す
-        data.latitude = 34.3845479077209;
-        data.longitude = 132.45614910237433;
-
         setProblem(data);
         console.log(data);
         console.log(
-          `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${data.latitude},${data.longitude}&heading=165&pitch=0&fov=90&key=${apiKey}`,
+          `https://maps.googleapis.com/maps/api/streetview?size=1000x800&location=${data.latitude},${data.longitude}&radius=100&pitch=0&fov=200&key=${apiKey}`,
         );
       } catch (error) {
         console.error("問題の取得に失敗しました:", error);
@@ -67,10 +71,10 @@ const Page = () => {
           <Button onPress={() => router.push("/camera")}>この場所へ行く</Button>
         }
       />
-      {problem ? (
+      {problem && problem.latitude && problem.longitude ? (
         <Image
           source={{
-            uri: `https://maps.googleapis.com/maps/api/streetview?size=1000x800&location=${problem?.latitude},${problem?.longitude}&heading=165&pitch=0&fov=200&key=AIzaSyBwKmSXGOhbVs7Q8ot0o3yrI0lDYqEr21U`,
+            uri: `https://maps.googleapis.com/maps/api/streetview?size=1000x800&location=${problem?.latitude},${problem?.longitude}&radius=100&heading=165&pitch=0&fov=200&key=${apiKey}`,
           }}
           style={styles.imageWrapper}
         />
