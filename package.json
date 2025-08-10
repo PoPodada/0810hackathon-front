@@ -23,6 +23,7 @@
     "@tamagui/config": "^1.132.16",
     "@tamagui/dialog": "^1.132.16",
     "expo": "~53.0.20",
+    "expo-camera": "~16.1.11",
     "expo-constants": "~17.1.7",
     "expo-linking": "~7.1.7",
     "expo-location": "~18.1.6",
@@ -36,8 +37,7 @@
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-web": "^0.20.0",
-    "tamagui": "^1.132.16",
-    "expo-camera": "~16.1.11"
+    "tamagui": "^1.132.16"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
