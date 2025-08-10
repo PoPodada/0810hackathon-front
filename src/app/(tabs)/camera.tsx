@@ -209,8 +209,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     //alignContent: "center",
     paddingHorizontal: 20,
-
-    bottom: 20,
   },
 });
 
