@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { Button, Paragraph } from "tamagui";
 
 const images = [
-  require("./image/hcu_googleMap_image.png"),
-  require("./image/hiroshimaCity_image.png"),
-  require("./image/hiroshima_university_image.png"),
-  require("./image/hiroshima_university_streetview_image.png"),
+  require("../image/hcu_googleMap_image.png"),
+  require("../image/hiroshimaCity_image.png"),
+  require("../image/hiroshima_university_image.png"),
+  require("../image/hiroshima_university_streetview_image.png"),
 ];
 const Page = () => {
   const router = useRouter();
