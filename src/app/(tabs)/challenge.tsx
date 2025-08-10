@@ -68,7 +68,20 @@ const Page = () => {
       <CommonHeader
         left={<Button onPress={() => router.back()}>戻る</Button>}
         right={
-          <Button onPress={() => router.push("/camera")}>この場所へ行く</Button>
+          <Button
+            onPress={() =>
+              router.push({
+                pathname: "/camera",
+                params: {
+                  userId: String(userId),
+                  latitude: String(latitude),
+                  longitude: String(longitude),
+                },
+              })
+            }
+          >
+            この場所へ行く
+          </Button>
         }
       />
       {problem && problem.latitude && problem.longitude ? (
